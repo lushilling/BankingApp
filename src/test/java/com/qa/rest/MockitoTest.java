@@ -1,5 +1,7 @@
 package com.qa.rest;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -32,5 +35,8 @@ public class MockitoTest {
 		List<Account> MOCK_LIST = new ArrayList<>();
 		MOCK_LIST.add(MOCK_ACCOUNT_1);
 		MOCK_LIST.add(MOCK_ACCOUNT_2);
+		Mockito.when(service.getAllAccounts()).thenReturn(MOCK_LIST);
+		assertEquals(MOCK_LIST, controller.getAllAccounts());
+		Mockito.verify(service).getAllAccounts();
 	}
 }
