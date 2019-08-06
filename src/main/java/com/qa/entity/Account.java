@@ -14,8 +14,7 @@ public class Account {
 	private String lastName;
 	private String accountNumber;
 	
-	public Account(Long id, String firstName, String lastName, String accountNumber) {
-		this.id = id;
+	public Account(String firstName, String lastName, String accountNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.accountNumber = accountNumber;

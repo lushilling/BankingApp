@@ -1,4 +1,4 @@
-package com.qa.controller;
+package com.qa.rest;
 
 import java.util.Collection;
 
@@ -37,7 +37,7 @@ public class AccountController {
 	}
 
 	@GetMapping("/getAccount/{id}")
-	public ResponseEntity<Object> getProduct(@PathVariable Long id) {
+	public ResponseEntity<Account> getAccount(@PathVariable Long id) {
 		return new ResponseEntity<>(accountService.getAccount(id), HttpStatus.OK);
 	}
 
