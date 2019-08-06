@@ -39,7 +39,7 @@ public class AccountController {
 	@GetMapping("/getAccount/{id}")
 	public ResponseEntity<Account> getAccount(@PathVariable Long id) {
 		return new ResponseEntity<>(accountService.getAccount(id), HttpStatus.OK);
-	}
+	} 
 
 	@DeleteMapping("/deleteAccount")
 	public String deleteAccount(Account account) {
