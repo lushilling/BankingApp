@@ -8,8 +8,8 @@ public interface AccountService {
 	
 	Collection<Account> getAllAccounts();
 	Account getAccount(Long id);
-	Account deleteAccount(Long id);
-	Account updateAccount(Long id, String account);
+	String deleteAccount(Account account);
+	String updateAccount(Account account);
 	Account addAccount(Account account);
 
 }

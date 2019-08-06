@@ -3,11 +3,14 @@ package com.qa.controller;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,10 +19,17 @@ import com.qa.service.AccountService;
 
 @RestController
 @RequestMapping("/account")
-public class AccountController{
-	
+public class AccountController {
+
+	private AccountService accountService;
+
 	@Autowired
-	AccountService accountService;
+	public AccountController(AccountService accountService) {
+		this.accountService = accountService;
+	}
+
+	public AccountController() {
+	}
 
 	@GetMapping("/allAccounts")
 	public Collection<Account> getAllAccounts() {
@@ -27,23 +37,24 @@ public class AccountController{
 	}
 
 	@GetMapping("/getAccount/{id}")
-	public String getAccount(@PathVariable("id") Long id) {
-		return accountService.getAccount(id);
+	public ResponseEntity<Object> getProduct(@PathVariable Long id) {
+		return new ResponseEntity<>(accountService.getAccount(id), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/deleteAccount/{id}")
-	public String deleteAccount(@PathVariable("id") Long id) {
-		return accountService.deleteAccount(id);
+	@DeleteMapping("/deleteAccount")
+	public String deleteAccount(Account account) {
+		return accountService.deleteAccount(account);
 	}
 
-	@PutMapping("/{id}")
-	public String updateAccount(@PathVariable("id") Long id, String account) {
-		return accountService.updateAccount(id, account);
+	@PutMapping("/updateAccount/{id}")
+	public ResponseEntity<Object> getProduct(@PathVariable Long id, Account account) {
+		return new ResponseEntity<>(accountService.updateAccount(account), HttpStatus.OK);
 	}
-
+	
 	@PostMapping("/addAccount")
-	public String addAccount(String account) {
-		return accountService.addAccount(account);
+	public ResponseEntity<Account> addAccount(@RequestBody Account account) {
+		Account newAccount = accountService.addAccount(account);
+		return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
 	}
 
 }
