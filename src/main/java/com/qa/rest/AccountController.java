@@ -28,7 +28,7 @@ public class AccountController {
 		this.accountService = accountService;
 	}
 
-	public AccountController() {
+	public AccountController() { 
 	}
 
 	@GetMapping("/allAccounts")

@@ -30,6 +30,8 @@ public class MockitoTest {
 	
 	private static final Account MOCK_ACCOUNT_2 = new Account("first 2", "last 2", "2");
 	
+	private static final long MOCK_VALUE = (long) 1;
+	
 	@Test
 	public void getAllAccountsTest() {
 		List<Account> MOCK_LIST = new ArrayList<>();
@@ -38,5 +40,17 @@ public class MockitoTest {
 		Mockito.when(service.getAllAccounts()).thenReturn(MOCK_LIST);
 		assertEquals(MOCK_LIST, controller.getAllAccounts());
 		Mockito.verify(service).getAllAccounts();
+	}
+	
+//	@Test
+//	public void getAccountTest() {
+//		Mockito.when(service.getAccount((long) 1)).thenReturn(MOCK_ACCOUNT_1);
+//		assertEquals(MOCK_ACCOUNT_1, controller.getAccount((long) 1));
+//	}
+
+	@Test
+	public void deleteAccountTest() {
+		Mockito.when(service.deleteAccount(MOCK_ACCOUNT_1)).thenReturn("Account deleted");
+		assertEquals("Account deleted", controller.deleteAccount(MOCK_ACCOUNT_1));
 	}
 }
