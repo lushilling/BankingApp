@@ -37,6 +37,8 @@ public class MockitoTest {
 	
 	private static final String MOCK_ARRAY = "[]";
 	
+	private static final Long MOCK_ID = 1L;
+	
 
 	@Test
 	public void getAllAccountsTest() {
@@ -67,5 +69,12 @@ public class MockitoTest {
 		Mockito.when(service.addAccount(MOCK_ACCOUNT_1)).thenReturn(MOCK_ACCOUNT_1);
 		assertEquals(MOCK_ACCOUNT_1, controller.addAccount(MOCK_ACCOUNT_1).getBody());
 		Mockito.verify(service).addAccount(MOCK_ACCOUNT_1);
+	}
+	
+	@Test
+	public void updateAccountTest() {
+		Mockito.when(service.updateAccount(MOCK_ACCOUNT_1)).thenReturn(MOCK_ACCOUNT_1.toString());
+		assertEquals(MOCK_ACCOUNT_1.toString(), controller.updateAccount(MOCK_ID, MOCK_ACCOUNT_1));
+		Mockito.verify(service).updateAccount(MOCK_ACCOUNT_1);
 	}
 }
