@@ -3,10 +3,12 @@ package com.qa.service;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.qa.entity.Account;
+import com.qa.entity.SentAccount;
 import com.qa.repository.AccountRepository;
 
 @Service
@@ -16,11 +18,14 @@ public class AccountServiceImplemented implements AccountService {
 	
 	private RestTemplate rest;
 
+	private JmsTemplate jmsTemplate;
+
 
 	@Autowired 
-	public AccountServiceImplemented(AccountRepository accountRepo, RestTemplate rest) {
+	public AccountServiceImplemented(AccountRepository accountRepo, RestTemplate rest, JmsTemplate jmsTemplate) {
 		this.accountRepo = accountRepo;
 		this.rest = rest;
+		this.jmsTemplate = jmsTemplate;
 	}
 	
 	public AccountServiceImplemented() {
@@ -47,9 +52,16 @@ public class AccountServiceImplemented implements AccountService {
 		
 		String prize = rest.getForObject("http://localhost:8081/prize/"+ accountNumber, String.class);
 		account.setPrize(prize);
+		sendToQueue(account);
 		
 		return accountRepo.save(account); 
 		
+	}
+	
+	private Account sendToQueue(Account account) {
+		SentAccount sentAccount = new SentAccount(account);
+		jmsTemplate.convertAndSend("AccountQueue", sentAccount);
+		return account;
 	}
 
 	public String updateAccount(Account account) {

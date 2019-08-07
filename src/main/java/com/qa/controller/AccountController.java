@@ -3,9 +3,9 @@ package com.qa.controller;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,17 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.entity.Account;
+import com.qa.entity.SentAccount;
 import com.qa.service.AccountService;
 
 @RestController
 @RequestMapping("/account")
 public class AccountController {
 
+	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private JmsTemplate jmsTemplate;
 
 	@Autowired
-	public AccountController(AccountService accountService) {
+	public AccountController(AccountService accountService, JmsTemplate jmsTemplate) {
 		this.accountService = accountService;
+		this.jmsTemplate = jmsTemplate;
 	}
 
 	public AccountController() {
@@ -57,5 +63,7 @@ public class AccountController {
 		Account newAccount = accountService.addAccount(account);
 		return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
 	}
+		
+
 
 }

@@ -9,22 +9,27 @@ public class SentAccount {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long sentId;
 	private String firstName;
 	private String lastName;
 	private String accountNumber;
 	private String prize;
-	
+
 	public SentAccount(Account account) {
-		this.id = account.getId();
+
+		this.accountNumber = account.getAccountNumber();
 		this.firstName = account.getFirstName();
 		this.lastName = account.getLastName();
-		this.accountNumber = account.getLastName();
 		this.prize = account.getPrize();
 	}
-	
-	public SentAccount() {
-		
+
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
 	public String getFirstName() {
@@ -43,14 +48,6 @@ public class SentAccount {
 		this.lastName = lastName;
 	}
 
-	public String getAccountNumber() {
-		return accountNumber;
-	}
-
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
 	public String getPrize() {
 		return prize;
 	}
@@ -58,5 +55,5 @@ public class SentAccount {
 	public void setPrize(String prize) {
 		this.prize = prize;
 	}
-	
+
 }
