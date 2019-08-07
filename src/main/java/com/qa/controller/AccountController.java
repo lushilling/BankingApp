@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.entity.Account;
-import com.qa.entity.SentAccount;
 import com.qa.service.AccountService;
 
 @RestController
@@ -32,7 +31,7 @@ public class AccountController {
 	@Autowired
 	public AccountController(AccountService accountService, JmsTemplate jmsTemplate) {
 		this.accountService = accountService;
-		this.jmsTemplate = jmsTemplate;
+		this.setJmsTemplate(jmsTemplate);
 	}
 
 	public AccountController() {
@@ -62,6 +61,14 @@ public class AccountController {
 	public ResponseEntity<Account> addAccount(@RequestBody Account account) {
 		Account newAccount = accountService.addAccount(account);
 		return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
+	}
+
+	public JmsTemplate getJmsTemplate() {
+		return jmsTemplate;
+	}
+
+	public void setJmsTemplate(JmsTemplate jmsTemplate) {
+		this.jmsTemplate = jmsTemplate;
 	}
 		
 

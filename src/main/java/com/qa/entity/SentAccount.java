@@ -1,28 +1,18 @@
 package com.qa.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 public class SentAccount {
 
-	@Id
-	@GeneratedValue
-	private Long sentId;
 	private String firstName;
 	private String lastName;
 	private String accountNumber;
 	private String prize;
 
 	public SentAccount(Account account) {
-
 		this.accountNumber = account.getAccountNumber();
 		this.firstName = account.getFirstName();
 		this.lastName = account.getLastName();
 		this.prize = account.getPrize();
 	}
-
 
 	public String getAccountNumber() {
 		return accountNumber;
