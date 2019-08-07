@@ -13,13 +13,15 @@ public class Account {
 	private String firstName;
 	private String lastName;
 	private String accountNumber;
+	private String prize;
 	
-	public Account(Long id, String firstName, String lastName, String accountNumber) {
+	public Account(Long id, String firstName, String lastName, String accountNumber, String prize) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.accountNumber = accountNumber;
+		this.prize = prize;
 	}
 	
 	public Account() {
@@ -52,6 +54,14 @@ public class Account {
 	
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+
+	public String getPrize() {
+		return prize;
+	}
+
+	public void setPrize(String prize) {
+		this.prize = prize;
 	}
 
 }

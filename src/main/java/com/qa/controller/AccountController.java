@@ -3,7 +3,7 @@ package com.qa.controller;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.qa.entity.Account;
 import com.qa.service.AccountService;
@@ -25,12 +24,9 @@ public class AccountController {
 
 	private AccountService accountService;
 
-	private RestTemplate restTemplate;
-
 	@Autowired
-	public AccountController(AccountService accountService, RestTemplate restTemplate) {
+	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
-		this.restTemplate = restTemplate;
 	}
 
 	public AccountController() {
@@ -60,14 +56,6 @@ public class AccountController {
 	public ResponseEntity<Account> addAccount(@RequestBody Account account) {
 		Account newAccount = accountService.addAccount(account);
 		return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
-	}
-
-	@GetMapping("/getMicro")
-	public String getMicro() {
-		ResponseEntity<String> exchangeCocktail = restTemplate.exchange("http://localhost:8081/getMicro",
-				HttpMethod.GET, null, String.class);
-		return exchangeCocktail.getBody();
-
 	}
 
 }

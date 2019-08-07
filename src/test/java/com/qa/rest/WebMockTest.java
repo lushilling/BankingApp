@@ -47,9 +47,9 @@ public class WebMockTest {
 	@MockBean
 	private RestTemplate restTemplate;
 
-	private static final Account MOCK_ACCOUNT_1 = new Account(1L, "first", "last", "abc123");
+	private static final Account MOCK_ACCOUNT_1 = new Account(1L, "first", "last", "abc123", "prize");
 
-	private static final Account MOCK_ACCOUNT_2 = new Account(2L, "first2", "last2", "abc123");
+	private static final Account MOCK_ACCOUNT_2 = new Account(2L, "first2", "last2", "abc123", "prize");
 
 	@Test
 	public void getAllTest() throws Exception {
